@@ -59,6 +59,8 @@ const gridOptions = reactive<VxeGridProps<any>>({
     export: true,
     print: true
   },
+  printConfig: {},
+  exportConfig: {},
   proxyConfig: {
     form: true,
     sort: true,

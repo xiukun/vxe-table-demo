@@ -1,8 +1,10 @@
 <template>
   <div>
     <vxe-form v-bind="formOptions" v-on="formEvents"></vxe-form>
-
+    <vxe-toolbar ref="toolbarRef" print></vxe-toolbar>
     <vxe-table
+      ref="tableRef"
+      :print-config="{}"
       show-overflow
       height="500"
       :data="tableData"
@@ -29,12 +31,17 @@
 
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue'
+import type { VxeToolbarInstance, VxeTableInstance } from 'vxe-table'
 import type { VxeFormProps, VxeFormListeners } from 'vxe-pc-ui'
 import axios from 'axios'
 import usePagination from '@/hooks/useVxePagination'
 defineOptions({
   name: 'VxeTableDemo1'
 })
+
+const toolbarRef = ref<VxeToolbarInstance>()
+const tableRef = ref<VxeTableInstance>()
+
 const { page, pagesize, paginationLayout, loading, handlePageChange, resetPagination } = usePagination({
   initialPage:1, 
   initialPageSize:10,
@@ -45,7 +52,6 @@ const { page, pagesize, paginationLayout, loading, handlePageChange, resetPagina
 })
 
 const total = ref(0)
-
 const tableData = ref<any[]>([])
 
 const loadData = async (page: number=1, pageSize: number=10) => {
@@ -65,7 +71,14 @@ const loadData = async (page: number=1, pageSize: number=10) => {
     }
 
 onMounted(() => {
+  // 加载数据
   loadData()
+  // 表格工具栏加载
+  const $table = tableRef.value
+  const $toolbar = toolbarRef.value
+  if ($table && $toolbar) {
+    $table.connect($toolbar)
+  }
 })
 
 

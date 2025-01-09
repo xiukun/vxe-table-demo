@@ -1,4 +1,5 @@
 <template>
+  <!-- <div><vxe-print-demo3 /></div> -->
   <div>
     <vxe-table-demo1 />
   </div>
@@ -8,6 +9,7 @@
 <script lang="ts" setup>
 import VxeTableDemo1 from '@/components/VxeTableDemo1.vue'
 import VxeGridDemo2 from '@/components/VxeGridDemo2.vue'
+// import VxePrintDemo3 from '@/components/VxePrintDemo3.vue'
 </script>
 
 <style>
